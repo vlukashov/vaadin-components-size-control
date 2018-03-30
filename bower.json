@@ -8,6 +8,6 @@
   "license": "MIT",
   "homepage": "https://github.com/vlukashov/vaadin-components-size-control",
   "dependencies": {
-    "vaadin-core": "v10.0.0-beta4"
+    "vaadin": "v10.0.0-beta4"
   }
 }

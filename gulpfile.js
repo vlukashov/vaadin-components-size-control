@@ -5,7 +5,6 @@ const fs = require("fs-extra");
 const path = require("path");
 const mdTable = require("markdown-table");
 const formatDate = require("date-fns/format");
-
 const gulp = require("gulp");
 const replace = require("gulp-replace");
 const rename = require("gulp-rename");
@@ -13,6 +12,31 @@ const rename = require("gulp-rename");
 const BUILDS_DIR = path.resolve(__dirname, "./builds");
 const BUNDLES_DIR = path.resolve(__dirname, "./bundles");
 const SHELLS_DIR = path.resolve(__dirname, "./shells");
+const KNOWN_REPOS = {
+  "vaadin-board": "https://github.com/vaadin/vaadin-board",
+  "vaadin-button": "https://github.com/vaadin/vaadin-button",
+  "vaadin-charts": "https://github.com/vaadin/vaadin-charts",
+  "vaadin-checkbox": "https://github.com/vaadin/vaadin-checkbox",
+  "vaadin-combo-box": "https://github.com/vaadin/vaadin-combo-box",
+  "vaadin-context-menu": "https://github.com/vaadin/vaadin-context-menu",
+  "vaadin-date-picker": "https://github.com/vaadin/vaadin-date-picker",
+  "vaadin-dialog": "https://github.com/vaadin/vaadin-dialog",
+  "vaadin-dropdown-menu": "https://github.com/vaadin/vaadin-dropdown-menu",
+  "vaadin-form-layout": "https://github.com/vaadin/vaadin-form-layout",
+  "vaadin-grid": "https://github.com/vaadin/vaadin-grid",
+  "vaadin-icons": "https://github.com/vaadin/vaadin-icons",
+  "vaadin-item": "https://github.com/vaadin/vaadin-item",
+  "vaadin-list-box": "https://github.com/vaadin/vaadin-list-box",
+  "vaadin-notification": "https://github.com/vaadin/vaadin-notification",
+  "vaadin-ordered-layout": "https://github.com/vaadin/vaadin-ordered-layout",
+  "vaadin-progress-bar": "https://github.com/vaadin/vaadin-progress-bar",
+  "vaadin-radio-button": "https://github.com/vaadin/vaadin-radio-button",
+  "vaadin-split-layout": "https://github.com/vaadin/vaadin-split-layout",
+  "vaadin-tabs": "https://github.com/vaadin/vaadin-tabs",
+  "vaadin-text-field": "https://github.com/vaadin/vaadin-text-field",
+  "vaadin-upload": "https://github.com/vaadin/vaadin-upload",
+  "vaadin-core": "https://github.com/vaadin/vaadin-core"
+};
 
 const bundles = fs.readdirSync(BUNDLES_DIR).filter(filename => {
   return fs.statSync(path.join(BUNDLES_DIR, filename)).isFile();
@@ -22,7 +46,7 @@ const shells = fs.readdirSync(SHELLS_DIR).filter(filename => {
   return fs.statSync(path.join(SHELLS_DIR, filename)).isFile();
 });
 
-const results = [];
+const measurements = [];
 const taskNames = [];
 for (const shellFileName of shells) {
   for (const bundleFileName of bundles) {
@@ -32,8 +56,8 @@ for (const shellFileName of shells) {
         bundleFileName,
         (shell, bundle, builtBundlePath) => {
           return fs.stat(builtBundlePath).then(stats => {
-            results[bundle] = results[bundle] || {};
-            results[bundle][shell] = stats.size;
+            measurements[bundle] = measurements[bundle] || {};
+            measurements[bundle][shell] = stats.size;
           });
         }
       )
@@ -59,52 +83,35 @@ gulp.task("size-control:report", taskNames, () => {
     ]
   ];
   const links = [];
-  const knownRepos = {
-    "vaadin-button": "https://github.com/vaadin/vaadin-button",
-    "vaadin-checkbox": "https://github.com/vaadin/vaadin-checkbox",
-    "vaadin-combo-box": "https://github.com/vaadin/vaadin-combo-box",
-    "vaadin-context-menu": "https://github.com/vaadin/vaadin-context-menu",
-    "vaadin-date-picker": "https://github.com/vaadin/vaadin-date-picker",
-    "vaadin-dialog": "https://github.com/vaadin/vaadin-dialog",
-    "vaadin-dropdown-menu": "https://github.com/vaadin/vaadin-dropdown-menu",
-    "vaadin-form-layout": "https://github.com/vaadin/vaadin-form-layout",
-    "vaadin-grid": "https://github.com/vaadin/vaadin-grid",
-    "vaadin-icons": "https://github.com/vaadin/vaadin-icons",
-    "vaadin-item": "https://github.com/vaadin/vaadin-item",
-    "vaadin-list-box": "https://github.com/vaadin/vaadin-list-box",
-    "vaadin-notification": "https://github.com/vaadin/vaadin-notification",
-    "vaadin-ordered-layout": "https://github.com/vaadin/vaadin-ordered-layout",
-    "vaadin-progress-bar": "https://github.com/vaadin/vaadin-progress-bar",
-    "vaadin-radio-button": "https://github.com/vaadin/vaadin-radio-button",
-    "vaadin-split-layout": "https://github.com/vaadin/vaadin-split-layout",
-    "vaadin-tabs": "https://github.com/vaadin/vaadin-tabs",
-    "vaadin-text-field": "https://github.com/vaadin/vaadin-text-field",
-    "vaadin-upload": "https://github.com/vaadin/vaadin-upload",
-    "vaadin-core": "https://github.com/vaadin/vaadin-core"
-  };
-  Object.keys(results)
+  Object.keys(measurements)
     .sort()
     .forEach((key, i) => {
       rows.push([
-        knownRepos[key] ? `[${key}][${padZero(i + 1)}]` : key,
-        formatAsKB(results[key]["full-polymer"]),
-        formatAsKB(results[key]["some-polymer"]),
-        formatAsKB(results[key]["no-polymer"])
+        KNOWN_REPOS[key] ? `[${key}][${padZero(i + 1)}]` : key,
+        formatAsKB(measurements[key]["full-polymer"]),
+        formatAsKB(measurements[key]["some-polymer"]),
+        formatAsKB(measurements[key]["no-polymer"])
       ]);
 
       links.push(
         `[${padZero(i + 1)}]: ${
-          knownRepos[key]
+          KNOWN_REPOS[key]
         } (see the <${key}> repo on GitHub)`
       );
     });
 
   const table = mdTable(rows) + "\n\n" + links.join("\n");
   const updated_on = formatDate(new Date(), "MMMM Do, YYYY");
+  const bowerjson = fs.readJsonSync(path.join(__dirname, "bower.json"));
+  const version =
+    bowerjson["dependencies"] && bowerjson["dependencies"]["vaadin"]
+      ? bowerjson["dependencies"]["vaadin"]
+      : "undefined";
 
   gulp
     .src(["README.md.tpl"])
     .pipe(rename("README.md"))
+    .pipe(replace("{{version}}", version))
     .pipe(replace("{{table}}", table))
     .pipe(replace("{{updated_on}}", updated_on))
     .pipe(gulp.dest("."));
