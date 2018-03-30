@@ -1,0 +1,13 @@
+{
+  "name": "vaadin-components-size-control",
+  "description": "",
+  "main": "index.html",
+  "authors": [
+    "Viktor Lukashov <viktor@vaadin.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/vlukashov/vaadin-components-size-control",
+  "dependencies": {
+    "vaadin-core": "v10.0.0-beta4"
+  }
+}
