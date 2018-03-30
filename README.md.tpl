@@ -7,7 +7,7 @@ The table below shows the impact (in kB) that adding a single [Vaadin Component]
 
 {{table}}
 
-_(last updated on {{updated_at}})_
+_(last updated on {{updated_on}})_
 
 
 ## What is measured and how
