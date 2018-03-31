@@ -13,6 +13,15 @@ const BUILDS_DIR = path.resolve(__dirname, "./builds");
 const BUNDLES_DIR = path.resolve(__dirname, "./bundles");
 const SHELLS_DIR = path.resolve(__dirname, "./shells");
 const KNOWN_REPOS = {
+  "paper-button": "https://github.com/PolymerElements/paper-button",
+  "paper-checkbox": "https://github.com/PolymerElements/paper-checkbox",
+  "paper-dialog": "https://github.com/PolymerElements/paper-dialog",
+  "paper-dropdown-menu":
+    "https://github.com/PolymerElements/paper-dropdown-menu",
+  "paper-input": "https://github.com/PolymerElements/paper-input",
+  "paper-progress": "https://github.com/PolymerElements/paper-progress",
+  "paper-radio-button": "https://github.com/PolymerElements/paper-radio-button",
+  "paper-tabs": "https://github.com/PolymerElements/paper-tabs",
   "vaadin-board": "https://github.com/vaadin/vaadin-board",
   "vaadin-button": "https://github.com/vaadin/vaadin-button",
   "vaadin-charts": "https://github.com/vaadin/vaadin-charts",
