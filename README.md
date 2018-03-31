@@ -4,42 +4,45 @@ The table below shows the impact (in kB) that adding a single [Vaadin Component]
 
 ## Impact
 
-| Component                   | Version      | full Polymer in app | some Polymer in app | no Polymer in app |
-| --------------------------- | ------------ | ------------------- | ------------------- | ----------------- |
-| [vaadin-board][09]          | 2.0.0-beta1  | 8.8 kB              | 43.5 kB             | 110.3 kB          |
-| [vaadin-button][10]         | 2.0.0-beta3  | 22.2 kB             | 25.7 kB             | 78 kB             |
-| [paper-button][01]          | 2.1.0        | 38.7 kB             | 73.4 kB             | 140.2 kB          |
-| [vaadin-charts][11]         | 6.0.0-beta2  | 401.5 kB            | 436.1 kB            | 503 kB            |
-| [vaadin-checkbox][12]       | 2.0.0-beta1  | 17.5 kB             | 21 kB               | 73.3 kB           |
-| [paper-checkbox][02]        | 2.0.3        | 44.3 kB             | 79 kB               | 145.8 kB          |
-| [vaadin-combo-box][13]      | 4.0.0-beta4  | 109.7 kB            | 144.4 kB            | 211.2 kB          |
-| [vaadin-context-menu][14]   | 4.0.0-beta2  | 32.5 kB             | 67.1 kB             | 134 kB            |
-| [vaadin-core][15]           | 10.0.0-beta4 | 622.9 kB            | 657.6 kB            | 724.4 kB          |
-| [vaadin-date-picker][16]    | 3.0.0-beta4  | 111.2 kB            | 145.9 kB            | 212.7 kB          |
-| [vaadin-dialog][17]         | 2.0.0-beta2  | 25.1 kB             | 59.8 kB             | 126.6 kB          |
-| [paper-dialog][03]          | 2.1.1        | 57.9 kB             | 92.6 kB             | 159.4 kB          |
-| [vaadin-dropdown-menu][18]  | 1.0.0-beta2  | 68.1 kB             | 102.8 kB            | 169.6 kB          |
-| [paper-dropdown-menu][04]   | 2.1.0        | 109.2 kB            | 143.8 kB            | 210.7 kB          |
-| [vaadin-form-layout][19]    | 2.0.0-beta1  | 21 kB               | 55.6 kB             | 122.5 kB          |
-| [vaadin-grid][20]           | 5.0.0-beta6  | 154.2 kB            | 188.9 kB            | 255.7 kB          |
-| [vaadin-icons][21]          | 4.1.3        | 245.5 kB            | 280.2 kB            | 347.1 kB          |
-| [vaadin-item][22]           | 2.0.0-beta2  | 14.4 kB             | 17.2 kB             | 59 kB             |
-| [vaadin-list-box][23]       | 1.0.0-beta2  | 14.7 kB             | 23.1 kB             | 64.9 kB           |
-| [vaadin-notification][24]   | 1.0.0-beta3  | 19.7 kB             | 23.2 kB             | 70 kB             |
-| [vaadin-ordered-layout][25] | 1.0.0-beta1  | 5.7 kB              | 8.5 kB              | 50.3 kB           |
-| [vaadin-password-field][26] | 2.0.0-beta3  | 37.8 kB             | 41.2 kB             | 83.1 kB           |
-| vaadin-pro                  | 10.0.0-beta4 | 408.3 kB            | 443 kB              | 509.8 kB          |
-| [vaadin-progress-bar][28]   | 1.0.0-beta1  | 15 kB               | 18.5 kB             | 60.3 kB           |
-| [paper-progress][06]        | 2.1.0        | 24 kB               | 58.6 kB             | 125.5 kB          |
-| [vaadin-radio-button][29]   | 1.0.0-beta1  | 18.8 kB             | 26.7 kB             | 79 kB             |
-| [paper-radio-button][07]    | 2.1.0        | 56.1 kB             | 90.8 kB             | 157.6 kB          |
-| [vaadin-split-layout][30]   | 4.0.0-beta2  | 17.5 kB             | 52.1 kB             | 119 kB            |
-| [vaadin-tabs][31]           | 2.0.0-beta2  | 35 kB               | 69.7 kB             | 136.5 kB          |
-| [paper-tabs][08]            | 2.1.0        | 66.2 kB             | 100.9 kB            | 167.7 kB          |
-| [vaadin-text-area][32]      | 2.0.0-beta3  | 30.3 kB             | 33.8 kB             | 75.6 kB           |
-| [vaadin-text-field][33]     | 2.0.0-beta3  | 26.8 kB             | 30.3 kB             | 72.1 kB           |
-| [paper-input][05]           | 2.2.1        | 49.8 kB             | 84.5 kB             | 151.3 kB          |
-| [vaadin-upload][34]         | 4.0.0-beta1  | 50.7 kB             | 54.2 kB             | 118.4 kB          |
+| Component                        | Version      | full Polymer in app | some Polymer in app | no Polymer in app |
+| -------------------------------- | ------------ | ------------------- | ------------------- | ----------------- |
+| [vaadin-board][09]               | 2.0.0-beta1  | 8.8 kB              | 43.5 kB             | 110.3 kB          |
+| [vaadin-button][10]              | 2.0.0-beta3  | 22.2 kB             | 25.7 kB             | 78 kB             |
+| [paper-button][01]               | 2.1.0        | 38.7 kB             | 73.4 kB             | 140.2 kB          |
+| [vaadin-charts][11]              | 6.0.0-beta2  | 401.5 kB            | 436.1 kB            | 503 kB            |
+| [vaadin-checkbox][12]            | 2.0.0-beta1  | 17.5 kB             | 21 kB               | 73.3 kB           |
+| [paper-checkbox][02]             | 2.0.3        | 44.3 kB             | 79 kB               | 145.8 kB          |
+| [vaadin-combo-box][13]           | 4.0.0-beta4  | 109.7 kB            | 144.4 kB            | 211.2 kB          |
+| [vaadin-context-menu][14]        | 4.0.0-beta2  | 32.5 kB             | 67.1 kB             | 134 kB            |
+| [vaadin-core][15]                | 10.0.0-beta4 | 622.9 kB            | 657.6 kB            | 724.4 kB          |
+| [vaadin-date-picker][16]         | 3.0.0-beta4  | 111.2 kB            | 145.9 kB            | 212.7 kB          |
+| [vaadin-dialog][17]              | 2.0.0-beta2  | 25.1 kB             | 59.8 kB             | 126.6 kB          |
+| [paper-dialog][03]               | 2.1.1        | 57.9 kB             | 92.6 kB             | 159.4 kB          |
+| [vaadin-dropdown-menu][18]       | 1.0.0-beta2  | 68.1 kB             | 102.8 kB            | 169.6 kB          |
+| [paper-dropdown-menu][04]        | 2.1.0        | 109.2 kB            | 143.8 kB            | 210.7 kB          |
+| [vaadin-form-layout][19]         | 2.0.0-beta1  | 21 kB               | 55.6 kB             | 122.5 kB          |
+| [vaadin-grid][20] (full)         | 5.0.0-beta6  | 154.2 kB            | 188.9 kB            | 255.7 kB          |
+| [vaadin-grid][20] (lite)         | 5.0.0-beta6  | 124.2 kB            | 158.9 kB            | 225.7 kB          |
+| [vaadin-icons][21]               | 4.1.3        | 245.5 kB            | 280.2 kB            | 347.1 kB          |
+| [vaadin-item][22]                | 2.0.0-beta2  | 14.4 kB             | 17.2 kB             | 59 kB             |
+| [vaadin-list-box][23]            | 1.0.0-beta2  | 14.7 kB             | 23.1 kB             | 64.9 kB           |
+| [vaadin-notification][24]        | 1.0.0-beta3  | 19.7 kB             | 23.2 kB             | 70 kB             |
+| [vaadin-ordered-layout][25]      | 1.0.0-beta1  | 5.7 kB              | 8.5 kB              | 50.3 kB           |
+| [vaadin-password-field][26]      | 2.0.0-beta3  | 37.8 kB             | 41.2 kB             | 83.1 kB           |
+| vaadin-pro                       | 10.0.0-beta4 | 408.3 kB            | 443 kB              | 509.8 kB          |
+| [vaadin-progress-bar][28]        | 1.0.0-beta1  | 15 kB               | 18.5 kB             | 60.3 kB           |
+| [paper-progress][06]             | 2.1.0        | 24 kB               | 58.6 kB             | 125.5 kB          |
+| [vaadin-radio-button][29]        | 1.0.0-beta1  | 18.8 kB             | 26.7 kB             | 79 kB             |
+| [paper-radio-button][07]         | 2.1.0        | 56.1 kB             | 90.8 kB             | 157.6 kB          |
+| [vaadin-split-layout][30]        | 4.0.0-beta2  | 17.5 kB             | 52.1 kB             | 119 kB            |
+| [vaadin-tabs][31]                | 2.0.0-beta2  | 35 kB               | 69.7 kB             | 136.5 kB          |
+| [paper-tabs][08]                 | 2.1.0        | 66.2 kB             | 100.9 kB            | 167.7 kB          |
+| [vaadin-text-area][32]           | 2.0.0-beta3  | 30.3 kB             | 33.8 kB             | 75.6 kB           |
+| [vaadin-text-field][33]          | 2.0.0-beta3  | 26.8 kB             | 30.3 kB             | 72.1 kB           |
+| [paper-input][05]                | 2.2.1        | 49.8 kB             | 84.5 kB             | 151.3 kB          |
+| [vaadin-upload][34]              | 4.0.0-beta1  | 50.7 kB             | 54.2 kB             | 118.4 kB          |
+| a login form (Vaadin Components) |              | 59.9 kB             | 94.6 kB             | 161.5 kB          |
+| a login form (Paper Elements)    |              | 85.7 kB             | 120.4 kB            | 187.2 kB          |
 
 [01]: https://github.com/PolymerElements/paper-button.git "see the <paper-button> repo on GitHub"
 [02]: https://github.com/PolymerElements/paper-checkbox.git "see the <paper-checkbox> repo on GitHub"

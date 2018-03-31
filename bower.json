@@ -16,6 +16,7 @@
     "paper-radio-button": "2.1.0",
     "paper-radio-group": "2.2.0",
     "paper-dialog": "2.1.1",
-    "paper-dialog-scrollable": "2.2.0"
+    "paper-dialog-scrollable": "2.2.0",
+    "iron-form": "2.3.0"
   }
 }
