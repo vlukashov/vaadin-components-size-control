@@ -43,11 +43,21 @@ const KNOWN_REPOS = {
   "vaadin-split-layout": "https://github.com/vaadin/vaadin-split-layout",
   "vaadin-tabs": "https://github.com/vaadin/vaadin-tabs",
   "vaadin-text-field": "https://github.com/vaadin/vaadin-text-field",
+  "vaadin-password-field": "https://github.com/vaadin/vaadin-text-field",
+  "vaadin-text-area": "https://github.com/vaadin/vaadin-text-field",
   "vaadin-upload": "https://github.com/vaadin/vaadin-upload",
   "vaadin-core": "https://github.com/vaadin/vaadin-core"
 };
 
 const bundles = fs.readdirSync(BUNDLES_DIR).filter(filename => {
+  return (
+    filename in
+    {
+      "vaadin-text-field-bundle.html": 0,
+      "vaadin-password-field-bundle.html": 0,
+      "vaadin-text-area-bundle.html": 0
+    }
+  );
   return fs.statSync(path.join(BUNDLES_DIR, filename)).isFile();
 });
 
