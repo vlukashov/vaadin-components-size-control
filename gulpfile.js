@@ -93,11 +93,13 @@ gulp.task("size-control:report", taskNames, () => {
         formatAsKB(measurements[key]["no-polymer"])
       ]);
 
-      links.push(
-        `[${padZero(i + 1)}]: ${
-          KNOWN_REPOS[key]
-        } (see the <${key}> repo on GitHub)`
-      );
+      if (KNOWN_REPOS[key]) {
+        links.push(
+          `[${padZero(i + 1)}]: ${
+            KNOWN_REPOS[key]
+          } (see the <${key}> repo on GitHub)`
+        );
+      }
     });
 
   const table = mdTable(rows) + "\n\n" + links.join("\n");
