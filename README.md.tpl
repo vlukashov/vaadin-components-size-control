@@ -3,7 +3,7 @@
 The table below shows the impact (in kB) that adding a single [Vaadin Component](https://vaadin.com/components) would have onto the effective app bundle size. It depends on whether or not the application already uses the [Polymer 2](https://www.polymer-project.org/) library (and if it does, then how much of Polymer is already in use). In addition to Vaadin Components, some Paper Elements are listed as well for comparison.
 
 
-## Impact (version {{version}})
+## Impact
 
 {{table}}
 

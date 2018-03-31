@@ -12,52 +12,8 @@ const rename = require("gulp-rename");
 const BUILDS_DIR = path.resolve(__dirname, "./builds");
 const BUNDLES_DIR = path.resolve(__dirname, "./bundles");
 const SHELLS_DIR = path.resolve(__dirname, "./shells");
-const KNOWN_REPOS = {
-  "paper-button": "https://github.com/PolymerElements/paper-button",
-  "paper-checkbox": "https://github.com/PolymerElements/paper-checkbox",
-  "paper-dialog": "https://github.com/PolymerElements/paper-dialog",
-  "paper-dropdown-menu":
-    "https://github.com/PolymerElements/paper-dropdown-menu",
-  "paper-input": "https://github.com/PolymerElements/paper-input",
-  "paper-progress": "https://github.com/PolymerElements/paper-progress",
-  "paper-radio-button": "https://github.com/PolymerElements/paper-radio-button",
-  "paper-tabs": "https://github.com/PolymerElements/paper-tabs",
-  "vaadin-board": "https://github.com/vaadin/vaadin-board",
-  "vaadin-button": "https://github.com/vaadin/vaadin-button",
-  "vaadin-charts": "https://github.com/vaadin/vaadin-charts",
-  "vaadin-checkbox": "https://github.com/vaadin/vaadin-checkbox",
-  "vaadin-combo-box": "https://github.com/vaadin/vaadin-combo-box",
-  "vaadin-context-menu": "https://github.com/vaadin/vaadin-context-menu",
-  "vaadin-date-picker": "https://github.com/vaadin/vaadin-date-picker",
-  "vaadin-dialog": "https://github.com/vaadin/vaadin-dialog",
-  "vaadin-dropdown-menu": "https://github.com/vaadin/vaadin-dropdown-menu",
-  "vaadin-form-layout": "https://github.com/vaadin/vaadin-form-layout",
-  "vaadin-grid": "https://github.com/vaadin/vaadin-grid",
-  "vaadin-icons": "https://github.com/vaadin/vaadin-icons",
-  "vaadin-item": "https://github.com/vaadin/vaadin-item",
-  "vaadin-list-box": "https://github.com/vaadin/vaadin-list-box",
-  "vaadin-notification": "https://github.com/vaadin/vaadin-notification",
-  "vaadin-ordered-layout": "https://github.com/vaadin/vaadin-ordered-layout",
-  "vaadin-progress-bar": "https://github.com/vaadin/vaadin-progress-bar",
-  "vaadin-radio-button": "https://github.com/vaadin/vaadin-radio-button",
-  "vaadin-split-layout": "https://github.com/vaadin/vaadin-split-layout",
-  "vaadin-tabs": "https://github.com/vaadin/vaadin-tabs",
-  "vaadin-text-field": "https://github.com/vaadin/vaadin-text-field",
-  "vaadin-password-field": "https://github.com/vaadin/vaadin-text-field",
-  "vaadin-text-area": "https://github.com/vaadin/vaadin-text-field",
-  "vaadin-upload": "https://github.com/vaadin/vaadin-upload",
-  "vaadin-core": "https://github.com/vaadin/vaadin-core"
-};
 
 const bundles = fs.readdirSync(BUNDLES_DIR).filter(filename => {
-  return (
-    filename in
-    {
-      "vaadin-text-field-bundle.html": 0,
-      "vaadin-password-field-bundle.html": 0,
-      "vaadin-text-area-bundle.html": 0
-    }
-  );
   return fs.statSync(path.join(BUNDLES_DIR, filename)).isFile();
 });
 
@@ -74,10 +30,39 @@ for (const shellFileName of shells) {
         shellFileName,
         bundleFileName,
         (shell, bundle, builtBundlePath) => {
-          return fs.stat(builtBundlePath).then(stats => {
-            measurements[bundle] = measurements[bundle] || {};
-            measurements[bundle][shell] = stats.size;
-          });
+          return Promise.all([
+            fs.stat(builtBundlePath).then(stats => {
+              measurements[bundle] = measurements[bundle] || {};
+              measurements[bundle][shell] = stats.size;
+            }),
+            fs
+              .readFile(path.join(BUNDLES_DIR, bundleFileName), "utf-8")
+              .then(bundleContent => {
+                const match = /<!--\s*@github:\s*([^\s]+)/i.exec(bundleContent);
+                if (match) {
+                  const repo = match[1];
+                  return fs.readJson(
+                    path.join(
+                      __dirname,
+                      "bower_components",
+                      repo,
+                      ".bower.json"
+                    )
+                  );
+                }
+              })
+              .then(bowerjson => {
+                if (!bowerjson) return;
+                measurements[bundle] = measurements[bundle] || {};
+                measurements[bundle]["version"] = bowerjson.version;
+                measurements[bundle]["github"] = bowerjson._source;
+              })
+              .catch(error => {
+                console.log(
+                  `Failed to read the @github comment in the bundle ${bundle}: ${error}`
+                );
+              })
+          ]);
         }
       )
     );
@@ -96,6 +81,7 @@ gulp.task("size-control:report", taskNames, () => {
   const rows = [
     [
       "Component",
+      "Version",
       "full Polymer in app",
       "some Polymer in app",
       "no Polymer in app"
@@ -106,16 +92,17 @@ gulp.task("size-control:report", taskNames, () => {
     .sort()
     .forEach((key, i) => {
       rows.push([
-        KNOWN_REPOS[key] ? `[${key}][${padZero(i + 1)}]` : key,
+        measurements[key].github ? `[${key}][${padZero(i + 1)}]` : key,
+        measurements[key].version || "_(unknown)_",
         formatAsKB(measurements[key]["full-polymer"]),
         formatAsKB(measurements[key]["some-polymer"]),
         formatAsKB(measurements[key]["no-polymer"])
       ]);
 
-      if (KNOWN_REPOS[key]) {
+      if (measurements[key].github) {
         links.push(
           `[${padZero(i + 1)}]: ${
-            KNOWN_REPOS[key]
+            measurements[key].github
           } (see the <${key}> repo on GitHub)`
         );
       }
@@ -123,16 +110,10 @@ gulp.task("size-control:report", taskNames, () => {
 
   const table = mdTable(rows) + "\n\n" + links.join("\n");
   const updated_on = formatDate(new Date(), "MMMM Do, YYYY");
-  const bowerjson = fs.readJsonSync(path.join(__dirname, "bower.json"));
-  const version =
-    bowerjson["dependencies"] && bowerjson["dependencies"]["vaadin"]
-      ? bowerjson["dependencies"]["vaadin"]
-      : "undefined";
 
   gulp
     .src(["README.md.tpl"])
     .pipe(rename("README.md"))
-    .pipe(replace("{{version}}", version))
     .pipe(replace("{{table}}", table))
     .pipe(replace("{{updated_on}}", updated_on))
     .pipe(gulp.dest("."));
