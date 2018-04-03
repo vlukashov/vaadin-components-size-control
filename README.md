@@ -1,6 +1,6 @@
 # Vaadin Components Size Control
 
-The table below shows the impact (in kB) that adding a single [Vaadin Component](https://vaadin.com/components) would have onto the effective app bundle size. It depends on whether or not the application already uses the [Polymer 2](https://www.polymer-project.org/) library (and if it does, then how much of Polymer is already in use). In addition to Vaadin Components, some Paper Elements are listed as well for comparison.
+The table below shows the impact (in kB) that adding a single [Vaadin component](https://vaadin.com/components) would have onto the effective app bundle size. It depends on whether or not the application already uses the [Polymer 2](https://www.polymer-project.org/) library (and if it does, then how much of Polymer is already in use). In addition to Vaadin components, some Paper Elements are listed as well for comparison.
 
 ## Impact
 
@@ -41,7 +41,7 @@ The table below shows the impact (in kB) that adding a single [Vaadin Component]
 | [vaadin-text-field][33]          | 2.0.0-beta3  | 26.8 kB             | 30.3 kB             | 72.1 kB           |
 | [paper-input][05]                | 2.2.1        | 49.8 kB             | 84.5 kB             | 151.3 kB          |
 | [vaadin-upload][34]              | 4.0.0-beta1  | 50.7 kB             | 54.2 kB             | 118.4 kB          |
-| a login form (Vaadin Components) |              | 59.9 kB             | 94.6 kB             | 161.5 kB          |
+| a login form (Vaadin components) |              | 59.9 kB             | 94.6 kB             | 161.5 kB          |
 | a login form (Paper Elements)    |              | 85.7 kB             | 120.4 kB            | 187.2 kB          |
 
 [01]: https://github.com/PolymerElements/paper-button.git "see the <paper-button> repo on GitHub"
@@ -82,7 +82,7 @@ _(last updated on March 31st, 2018)_
 
 ## What is measured and how
 
-The numbers in the table show how much the application bundle size will increase after importing a single Vaadin Component. This assumes that the application is built with the [Polymer CLI](https://www.polymer-project.org/2.0/docs/tools/polymer-cli) which is the recommended way for Polymer projects. All imports are bundled and minified, but not transpiled into ES5.
+The numbers in the table show how much the application bundle size will increase after importing a single Vaadin component. This assumes that the application is built with the [Polymer CLI](https://www.polymer-project.org/2.0/docs/tools/polymer-cli) which is the recommended way for Polymer projects. All imports are bundled and minified, but not transpiled into ES5.
 
 Each row in the table has three numbers:
 
@@ -96,7 +96,7 @@ Each row in the table has three numbers:
 
 * **no Polymer in app**: size impact for an app that does not use the Polymer 2 library
 
-  This scenario shows the size impact of including a Vaadin Component into a non-Polymer application. All dependencies that a component has to the Polymer 2 library are counted into its size impact.
+  This scenario shows the size impact of including a Vaadin component into a non-Polymer application. All dependencies that a component has to the Polymer 2 library are counted into its size impact.
 
 All numbers are in kilobytes (1 kB = 1000 bytes). The [polyfills](https://github.com/webcomponents/webcomponentsjs) for the Web Components APIs are not included into the measurement.
 
@@ -111,5 +111,5 @@ All numbers are in kilobytes (1 kB = 1000 bytes). The [polyfills](https://github
 * verify the results
 * measure the size impact of a different version of a component
 * measure the size impact for an app that uses a different subset of Polymer 2 features
-* measure the combined impact of a set of Vaadin Components
+* measure the combined impact of a set of Vaadin components
 * measure the size impact of another Polymer element
