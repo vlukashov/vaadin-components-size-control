@@ -6,7 +6,7 @@
   "license": "MIT",
   "homepage": "https://github.com/vlukashov/vaadin-components-size-control",
   "dependencies": {
-    "vaadin": "v10.0.0-beta4",
+    "vaadin": "v10.0.0-beta9",
     "paper-input": "2.2.1",
     "paper-button": "2.1.0",
     "paper-progress": "2.1.0",
